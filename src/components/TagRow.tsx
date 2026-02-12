@@ -1,6 +1,7 @@
 "use client";
 
 const DEFAULT_TAGS = [
+  "All",
   "Music",
   "Tech",
   "Sports",
@@ -9,7 +10,6 @@ const DEFAULT_TAGS = [
   "Nightlife",
   "Meetup",
   "Workshop",
-  "Free",
 ];
 
 type TagRowProps = {

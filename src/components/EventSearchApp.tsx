@@ -14,7 +14,7 @@ function useClickOutside(ref: React.RefObject<HTMLElement | null>, onClose: () =
 import type { Event } from "@/types/event";
 import { SearchForm } from "./SearchForm";
 import { TagRow } from "./TagRow";
-import { EventList } from "./EventList";
+import { EventCardRow } from "./EventCardRow";
 import { AIChatPanel } from "./AIChatPanel";
 
 type SourceTab = "all" | "own" | "external";
@@ -35,10 +35,22 @@ export function EventSearchApp() {
   const [hasSearched, setHasSearched] = useState(false);
   const [locationOpen, setLocationOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [aiPicks, setAiPicks] = useState<Event[]>([]);
   const locationRef = useRef<HTMLDivElement>(null);
   useClickOutside(locationRef, () => setLocationOpen(false));
 
   const coords = LOCATIONS[locationLabel];
+
+  useEffect(() => {
+    fetch("/api/recommend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ limit: 8 }),
+    })
+      .then((r) => r.json())
+      .then((data) => setAiPicks(data.events ?? []))
+      .catch(() => setAiPicks([]));
+  }, []);
 
   const fetchEvents = useCallback(
     async (q: string) => {
@@ -80,11 +92,11 @@ export function EventSearchApp() {
   const handleTagSelect = useCallback(
     (tag: string) => {
       setSelectedTag(tag);
-      setQuery(tag);
-      setHasSearched(true);
+      setQuery(tag === "All" ? "" : tag);
+      setHasSearched(tag !== "All");
       setLoading(true);
       const params = new URLSearchParams();
-      params.set("q", tag);
+      if (tag !== "All") params.set("q", tag);
       params.set("source", source);
       params.set("limit", "30");
       fetch(`/api/events?${params}`)
@@ -193,42 +205,27 @@ export function EventSearchApp() {
         <div className="h-1 w-full shrink-0 bg-[var(--border)]" aria-hidden />
 
         <div className="mt-4">
-          <div className="mb-4 flex gap-2 border-b border-[var(--border)]">
-            {(
-              [
-                { id: "all" as const, label: "All" },
-                { id: "own" as const, label: "Your events" },
-                { id: "external" as const, label: "Partner events" },
-              ] as const
-            ).map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => handleSourceChange(id)}
-                className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-                  source === id
-                    ? "border-[var(--accent)] text-[var(--accent)]"
-                    : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)]"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {loading && !events.length ? (
-            <p className="py-12 text-center text-[var(--muted)]">Loading…</p>
-          ) : loading ? (
-            <p className="py-12 text-center text-[var(--muted)]">Searching…</p>
-          ) : (
-            <EventList
-              events={events}
-              emptyMessage={
-                hasSearched
-                  ? "No events match your search."
-                  : "No events yet."
-              }
-            />
-          )}
+          <EventCardRow
+            title="AI Picks For You"
+            emoji="⚡"
+            events={aiPicks}
+            seeAllHref="#ai-picks"
+            emptyMessage="No picks yet."
+          />
+          <EventCardRow
+            title="Happening Near You"
+            emoji="📍"
+            events={events}
+            seeAllHref="#happening"
+            emptyMessage={loading ? "Loading…" : hasSearched ? "No events match your search." : "No events yet."}
+          />
+          <EventCardRow
+            title="Trending Now"
+            emoji="🔥"
+            events={[...events].sort((a, b) => new Date(b.startAt).getTime() - new Date(a.startAt).getTime()).slice(0, 10)}
+            seeAllHref="#trending"
+            emptyMessage="No trending events."
+          />
         </div>
       </main>
     </div>
