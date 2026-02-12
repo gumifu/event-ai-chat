@@ -36,7 +36,7 @@ export function SearchForm({
   return (
     <form onSubmit={handleSubmit} className={`flex w-full items-center gap-2 ${className}`}>
       <div
-        className={`relative flex min-w-0 flex-1 items-center rounded-xl ${onOpenChat ? "ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-[var(--background)] transition hover:ring-[var(--accent-muted)] focus-within:ring-[var(--accent-muted)]" : ""}`}
+        className="relative flex min-w-0 flex-1 items-center rounded-xl"
         role={onOpenChat ? "button" : undefined}
         onClick={onOpenChat ? handleInputClick : undefined}
         onKeyDown={onOpenChat ? (e) => e.key === "Enter" && handleInputClick() : undefined}
