@@ -13,7 +13,7 @@ type EventCardRowProps = {
 
 function SeeAllCard({ href }: { href: string }) {
   return (
-    <li className="min-w-[80%] shrink-0 sm:min-w-[320px] sm:max-w-[360px] list-none">
+    <li className="w-[80vw] min-w-[80vw] shrink-0 sm:w-[320px] sm:min-w-[320px] list-none">
       <a
         href={href}
         className="block h-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--border)]/50 transition hover:bg-[var(--border)]"
@@ -49,7 +49,7 @@ export function EventCardRow({
           {events.map((event) => (
             <li
               key={event.id}
-              className="min-w-[80%] shrink-0 sm:min-w-[320px] sm:max-w-[360px]"
+              className="w-[80vw] min-w-[80vw] shrink-0 sm:w-[320px] sm:min-w-[320px]"
             >
               <EventCard event={event} />
             </li>

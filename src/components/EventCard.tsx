@@ -62,7 +62,7 @@ export function EventCard({ event }: { event: Event }) {
   const showPlaceholder = !event.imageUrl || imageError;
 
   return (
-    <article className="h-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]">
+    <article className="h-full w-full min-w-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]">
       <a
         href={event.url ?? "#"}
         target={event.url ? "_blank" : undefined}

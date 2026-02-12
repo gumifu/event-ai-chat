@@ -36,13 +36,13 @@ export function SearchForm({
   return (
     <form onSubmit={handleSubmit} className={`flex w-full items-center gap-2 ${className}`}>
       <div
-        className="relative flex min-w-0 flex-1 items-center"
+        className={`relative flex min-w-0 flex-1 items-center rounded-xl ${onOpenChat ? "ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-[var(--background)] transition hover:ring-[var(--accent-muted)] focus-within:ring-[var(--accent-muted)]" : ""}`}
         role={onOpenChat ? "button" : undefined}
         onClick={onOpenChat ? handleInputClick : undefined}
         onKeyDown={onOpenChat ? (e) => e.key === "Enter" && handleInputClick() : undefined}
         tabIndex={onOpenChat ? 0 : undefined}
       >
-        <span className="absolute left-4 text-[var(--muted)]" aria-hidden>
+        <span className={`absolute left-4 ${onOpenChat ? "text-[var(--accent)]" : "text-[var(--muted)]"}`} aria-hidden>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
           </svg>
@@ -54,10 +54,10 @@ export function SearchForm({
           onChange={(e) => onChange(e.target.value)}
           readOnly={!!onOpenChat}
           onClick={onOpenChat ? handleInputClick : undefined}
-          className={`w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] py-3 pl-11 pr-12 text-[var(--foreground)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] ${onOpenChat ? "cursor-pointer" : ""}`}
+          className={`w-full rounded-xl border py-3 pl-11 pr-12 text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none ${onOpenChat ? "cursor-pointer border-[var(--accent)]/60 bg-[var(--accent)]/10 placeholder:text-[var(--muted)] focus:border-[var(--accent)]" : "border-[var(--border)] bg-[var(--surface)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]"}`}
           aria-label={onOpenChat ? "Open AI Search chat" : "AI Search"}
         />
-        <span className="absolute right-3 flex items-center gap-1 text-[var(--muted)]" aria-hidden>
+        <span className={`absolute right-3 flex items-center gap-1 ${onOpenChat ? "text-[var(--accent)]" : "text-[var(--muted)]"}`} aria-hidden>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.35-4.35" />
