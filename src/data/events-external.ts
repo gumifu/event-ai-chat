@@ -1,0 +1,73 @@
+import type { Event } from "@/types/event";
+
+/**
+ * 外部サイト連携のイベント（モック）。
+ * 本番では Ticketmaster / Eventbrite / 地域イベントAPI 等に差し替え可能。
+ */
+export const externalEvents: Event[] = [
+  {
+    id: "ext-1",
+    title: "東京マラソン 応援エリア",
+    description: "東京マラソンの沿道応援。公式応援スポットでランナーを応援しよう。",
+    startAt: "2025-03-02T09:00:00+09:00",
+    endAt: "2025-03-02T15:00:00+09:00",
+    venue: { name: "浅草雷門周辺", address: "東京都台東区雷門1-1", lat: 35.7118, lng: 139.7965, city: "台東区" },
+    imageUrl: "https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=800",
+    url: "https://www.marathon.tokyo/",
+    source: "external",
+    category: ["スポーツ", "マラソン", "応援"],
+    price: "無料",
+  },
+  {
+    id: "ext-2",
+    title: "恵比寿ビール祭り",
+    description: "世界各国のクラフトビールが楽しめる屋外イベント。",
+    startAt: "2025-02-28T11:00:00+09:00",
+    endAt: "2025-03-02T21:00:00+09:00",
+    venue: { name: "恵比寿ガーデンプレイス", address: "東京都渋谷区恵比寿4-20", lat: 35.6467, lng: 139.7101, city: "渋谷区" },
+    imageUrl: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800",
+    url: "https://example.com/ebisu-beer",
+    source: "external",
+    category: ["フード", "ビール", "フェス"],
+    price: "入場無料（飲食別）",
+  },
+  {
+    id: "ext-3",
+    title: "上野桜まつり",
+    description: "上野公園の桜と屋台・ライブ。春の訪れを感じる定番イベント。",
+    startAt: "2025-03-20T09:00:00+09:00",
+    endAt: "2025-04-10T20:00:00+09:00",
+    venue: { name: "上野公園", address: "東京都台東区上野公園", lat: 35.7148, lng: 139.7747, city: "台東区" },
+    imageUrl: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=800",
+    url: "https://example.com/ueno-sakura",
+    source: "external",
+    category: ["お花見", "桜", "フェス"],
+    price: "無料",
+  },
+  {
+    id: "ext-4",
+    title: "秋葉原 eスポーツ大会",
+    description: "アマチュア eスポーツ大会。観戦無料。エントリー制。",
+    startAt: "2025-02-23T12:00:00+09:00",
+    endAt: "2025-02-23T20:00:00+09:00",
+    venue: { name: "秋葉原 eスポーツ施設", address: "東京都千代田区外神田", lat: 35.6984, lng: 139.7731, city: "千代田区" },
+    imageUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800",
+    url: "https://example.com/akiba-esports",
+    source: "external",
+    category: ["eスポーツ", "ゲーム", "観戦"],
+    price: "観戦無料",
+  },
+  {
+    id: "ext-5",
+    title: "神保町古書まつり",
+    description: "古書店街の一斉即売。掘り出し物の本や雑誌が並ぶ。",
+    startAt: "2025-03-08T10:00:00+09:00",
+    endAt: "2025-03-10T18:00:00+09:00",
+    venue: { name: "神保町 靖国通り", address: "東京都千代田区神田神保町", lat: 35.6958, lng: 139.7576, city: "千代田区" },
+    imageUrl: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800",
+    url: "https://example.com/jimbocho",
+    source: "external",
+    category: ["本", "古書", "街歩き"],
+    price: "無料",
+  },
+];
