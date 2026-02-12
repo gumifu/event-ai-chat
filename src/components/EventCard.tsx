@@ -74,7 +74,7 @@ export function EventCard({ event }: { event: Event }) {
             <ImagePlaceholder />
           ) : (
             <Image
-              src={event.imageUrl}
+              src={event.imageUrl!}
               alt=""
               fill
               className="object-cover"
